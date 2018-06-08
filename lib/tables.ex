@@ -34,7 +34,7 @@ defmodule BShare.Tables do
   @doc """
   """
   def check_in(user) do
-    GenServer.cast(@name, {:check_in, user})
+    GenServer.call(@name, {:check_in, user})
   end
 
   @doc """
