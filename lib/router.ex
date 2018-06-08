@@ -1,7 +1,24 @@
 defmodule BShare.Router do
   alias BShare.{Auth, Tables, HOTP}
+  use Plug.Router
+  use Plug.ErrorHandler
 
-  def get_token(token) do
+  plug(
+    Plug.Parsers,
+    parsers: [:json],
+    json_decoder: JSON
+  )
+
+  plug(:match)
+  plug(:dispatch)
+
+  post "/authorize" do
+    send_resp(conn, 201, "#{conn.body_params |> Map.fetch("token") |> elem(1) |> get_token()}")
+  end
+
+  match(_, do: send_resp(conn, 404, "not found"))
+
+  defp get_token(token) do
     {:ok, user} = Auth.get_user(token)
     if Auth.valid?(user) do
       bike_num = case Tables.has_bike?(user) do
@@ -13,7 +30,7 @@ defmodule BShare.Router do
           Tables.check_out(user, num)
           num
       end
-      HOTP.get_key(bike_num)
+      key = HOTP.get_key(bike_num)
     else
       ""
     end
