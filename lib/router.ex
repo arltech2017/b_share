@@ -18,6 +18,7 @@ defmodule BShare.Router do
 
   match(_, do: send_resp(conn, 404, "not found"))
 
+  @spec get_token(String.t) :: String.t
   defp get_token(token) do
     {:ok, user} = Auth.get_user(token)
     if Auth.valid?(user) do

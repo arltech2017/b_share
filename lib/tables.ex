@@ -33,12 +33,14 @@ defmodule BShare.Tables do
 
   @doc """
   """
+  @spec check_in(String.t) :: integer
   def check_in(user) do
     GenServer.call(@name, {:check_in, user})
   end
 
   @doc """
   """
+  @spec check_out(String.t, integer) :: :ok
   def check_out(user, bike_num) do
     GenServer.cast(@name, {:check_out, user, bike_num})
   end
