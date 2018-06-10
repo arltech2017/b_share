@@ -7,7 +7,7 @@ defmodule BShare.HOTP do
   use GenServer
 
   @name HOTP
-  @secret "secret"
+  @secret "ITSAKEY"
 
   ##############
   # Client API #
