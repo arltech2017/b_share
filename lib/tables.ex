@@ -1,5 +1,6 @@
 defmodule BShare.Tables do
   @moduledoc """
+    this implments the bike database (ETS) and the genserver interface
   """
 
   use GenServer
@@ -18,6 +19,7 @@ defmodule BShare.Tables do
   end
 
   @doc """
+    returns the index of a random availible device
   """
   @spec get_bike() :: integer
   def get_bike() do
@@ -25,6 +27,7 @@ defmodule BShare.Tables do
   end
 
   @doc """
+    determines whether an account is currently checking out a bike
   """
   @spec has_bike?(map) :: boolean
   def has_bike?(user) do
@@ -32,6 +35,8 @@ defmodule BShare.Tables do
   end
 
   @doc """
+    updates the database so that the user is no-longer checking out a bike
+    and returns the index of that bike.
   """
   @spec check_in(String.t) :: integer
   def check_in(user) do
@@ -39,6 +44,7 @@ defmodule BShare.Tables do
   end
 
   @doc """
+    updates the database so that the user is checking out the bike at index bike_num.
   """
   @spec check_out(String.t, integer) :: :ok
   def check_out(user, bike_num) do
@@ -95,4 +101,5 @@ defmodule BShare.Tables do
   ####################
   # helper functions #
   ####################
+
 end

@@ -1,4 +1,9 @@
 defmodule BShare.Router do
+  @moduledoc """
+    This module handles routing for the cowboy server,
+    and implements the main control flow.
+  """
+
   alias BShare.{Auth, Tables, HOTP}
   use Plug.Router
   use Plug.ErrorHandler
